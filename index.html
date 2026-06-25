@@ -1,15 +1,123 @@
 <!DOCTYPE html>
-<html lang="hr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>es-studio</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Kawaii Floral OS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffe6f0, #e8fff1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Press Start 2P', monospace;
+  }
+
+  /* floating pixel flowers */
+  .flower {
+    position: absolute;
+    font-size: 18px;
+    animation: float 6s infinite ease-in-out;
+    opacity: 0.7;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .box {
+    text-align: center;
+    z-index: 10;
+  }
+
+  .clock {
+    font-size: 26px;
+    color: #3f5a4a;
+    text-shadow: 2px 2px 0px #fff;
+  }
+
+  .label {
+    margin-top: 10px;
+    font-size: 10px;
+    color: #d98ca8;
+  }
+
+  .assistant {
+    margin-top: 20px;
+    font-size: 22px;
+  }
+
+  .mood {
+    margin-top: 15px;
+    font-size: 10px;
+    cursor: pointer;
+    color: #6b7b6b;
+  }
+</style>
 </head>
+
 <body>
 
-    <h1>Pozdrav!</h1>
-    <p>Moja nova web stranica.</p>
+<!-- floating flowers -->
+<div class="flower" style="top:10%; left:15%;">🌸</div>
+<div class="flower" style="top:20%; left:80%; animation-delay:1s;">🌼</div>
+<div class="flower" style="top:70%; left:10%; animation-delay:2s;">🌷</div>
+<div class="flower" style="top:60%; left:85%; animation-delay:3s;">🌸</div>
+<div class="flower" style="top:40%; left:50%; animation-delay:4s;">🌼</div>
+
+<div class="box">
+  <div class="clock" id="clock">00:00:00</div>
+  <div class="label">floral studio ♥ kawaii mode</div>
+
+  <!-- mini assistant -->
+  <div class="assistant" id="assistant">🧸</div>
+
+  <!-- mood -->
+  <div class="mood" id="mood">Mood: calm 🌿 (click me)</div>
+</div>
+
+<script>
+function updateClock() {
+  const now = new Date();
+
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+
+  document.getElementById("clock").innerText = `${h}:${m}:${s}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+/* 🌈 mood system */
+const moods = [
+  {text: "calm 🌿", color: "#6b7b6b", face: "🧸"},
+  {text: "creative 🎨", color: "#d98ca8", face: "🧁"},
+  {text: "busy ⚡", color: "#ff7b7b", face: "🔥"},
+  {text: "happy 🌸", color: "#ff9ecb", face: "🐰"}
+];
+
+let i = 0;
+
+document.getElementById("mood").addEventListener("click", function() {
+  i = (i + 1) % moods.length;
+
+  const m = moods[i];
+
+  this.innerText = "Mood: " + m.text;
+  this.style.color = m.color;
+
+  document.getElementById("assistant").innerText = m.face;
+});
+</script>
 
 </body>
 </html>
